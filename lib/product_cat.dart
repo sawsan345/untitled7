@@ -12,17 +12,13 @@ class Product extends StatefulWidget {
 }
 
 class _ProductState extends State<Product> {
-  late ScrollController myScroll;
-  late GlobalKey<RefreshIndicatorState> refreshKey;
-  int i = 0;
-  bool loadingList = false;
+
 
   void getDataFood() async {
-    loadingList = true;
-    setState(() {});
+
     List arr = await getData1();
 
-    loadingList = false;
+
     setState(() {});
   }
 
@@ -30,7 +26,6 @@ class _ProductState extends State<Product> {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    myScroll.dispose();
     foodList.clear();
   }
 
@@ -38,17 +33,10 @@ class _ProductState extends State<Product> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    myScroll = ScrollController();
-    refreshKey = GlobalKey<RefreshIndicatorState>();
+
     getDataFood();
 
-    myScroll.addListener(() {
-      if (myScroll.position.pixels == myScroll.position.maxScrollExtent) {
-        i += 20;
-        getDataFood();
-        print("scroll");
-      }
-    });
+
   }
 
   Icon _searchIcon = Icon(
@@ -74,15 +62,8 @@ class _ProductState extends State<Product> {
             actions: [],
           ),
           body: Container(
-            child: RefreshIndicator(
-              onRefresh: () async {
-                i = 0;
-                foodList.clear();
-                await getDataFood;
-              },
-              key: refreshKey,
+
               child: ListView.builder(
-                controller: myScroll,
                 itemCount: foodList.length,
                 itemBuilder: (context, index) {
                   return SingleProduct(
@@ -92,8 +73,9 @@ class _ProductState extends State<Product> {
                 },
               ),
             ),
-          )),
+      )
     );
+
   }
 }
 
