@@ -3,8 +3,6 @@ import 'package:untitled7/function_cat.dart';
 
 import 'package:untitled7/model_confwert.dart';
 
-List<Data> foodList = [];
-
 class Product extends StatefulWidget {
   Product();
   @override
@@ -12,12 +10,10 @@ class Product extends StatefulWidget {
 }
 
 class _ProductState extends State<Product> {
-
+  List<Data> foodList = [];
 
   void getDataFood() async {
-
-    List arr = await getData1();
-
+    foodList = await getData1();
 
     setState(() {});
   }
@@ -35,8 +31,6 @@ class _ProductState extends State<Product> {
     super.initState();
 
     getDataFood();
-
-
   }
 
   Icon _searchIcon = Icon(
@@ -47,35 +41,32 @@ class _ProductState extends State<Product> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            leading: IconButton(
-                icon: Icon(
-                  Icons.arrow_back_ios,
-                  color: Colors.black,
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                }),
-            centerTitle: true,
-            actions: [],
-          ),
-          body: Container(
-
-              child: ListView.builder(
-                itemCount: foodList.length,
-                itemBuilder: (context, index) {
-                  return SingleProduct(
-                    foo_index: index,
-                    food: foodList[index],
-                  );
-                },
-              ),
+        child: Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black,
             ),
-      )
-    );
-
+            onPressed: () {
+              Navigator.of(context).pop();
+            }),
+        centerTitle: true,
+        actions: [],
+      ),
+      body: Container(
+        child: ListView.builder(
+          itemCount: foodList.length,
+          itemBuilder: (context, index) {
+            return SingleProduct(
+              foo_index: index,
+              food: foodList[index],
+            );
+          },
+        ),
+      ),
+    ));
   }
 }
 
@@ -103,7 +94,6 @@ class SingleProduct extends StatelessWidget {
           Expanded(
             child: GestureDetector(
               child: Container(
-                height: 100.0,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
